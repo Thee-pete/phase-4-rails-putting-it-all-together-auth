@@ -8,7 +8,8 @@ class RecipesController < ApplicationController
     end
 
     def create
-        recipe = Recipe.create(recipe_params)
+        user = User.find(session[:user_id])
+        recipe = user.recipes.create(recipe_params)
         if recipe.valid?
           render json: recipe, status: :created
         else
